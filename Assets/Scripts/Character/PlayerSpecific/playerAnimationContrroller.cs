@@ -18,7 +18,7 @@ public class playerAnimationContrroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (pStatSys.isMoving)
         {
             pStatSys.myAnim.SetBool("isMoving", !pStatSys.myAnim.GetBool("isMoving"));
         }

@@ -18,6 +18,9 @@ public class characterStatSystem : MonoBehaviour
     [SerializeField] public GameObject characterObject;
     [SerializeField] public Rigidbody2D myRb;
     [SerializeField] public Animator myAnim;
+
+    //Movement vals
+    [HideInInspector] public bool isMoving = false;
     #endregion
 
     private void Start()
