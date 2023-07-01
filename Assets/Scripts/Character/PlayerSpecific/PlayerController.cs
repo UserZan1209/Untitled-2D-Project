@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     #region keyBindings
     [Header("Key Bindings")]
     [SerializeField] private KeyCode KEY_Attack;
+    [SerializeField] private KeyCode KEY_Block;
     [SerializeField] private KeyCode KEY_Parry;
     [SerializeField] private KeyCode KEY_Projectile;
     [SerializeField] private KeyCode KEY_Ulltimate;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isDead;
     [SerializeField] private bool canattack = true;
     [SerializeField] private bool isAttacking = false;
+    [SerializeField] private bool isBlocking = false;
 
     [Header("Runtime References")]
     [SerializeField] public GameObject TEMP_target;
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (isDead)
         {
-            //myStatSYS.myAnim.SetBool("isDead", true);
+            myStatSYS.myAnim.SetBool("isDead", true);
         }
         #endregion
 
@@ -101,6 +103,15 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyUp(KEY_Inventory))
         {
             toggleInventory();
+        }
+        else if (Input.GetKeyDown(KEY_Block))
+        {
+            block();
+        }
+        else if (Input.GetKeyUp(KEY_Block))
+        {
+            isBlocking = false;
+            myStatSYS.myAnim.SetBool("holdBlocking", false);
         }
 
         #region DEBUG INPUTS
@@ -128,7 +139,7 @@ public class PlayerController : MonoBehaviour
     private void attack()
     {
         Debug.Log("Attacking");
-        //myStatSYS.myAnim.SetTrigger("isAttacking");
+        myStatSYS.myAnim.SetTrigger("isAttacking");
 
         if (TEMP_target != null)
         {
@@ -141,12 +152,24 @@ public class PlayerController : MonoBehaviour
     private void parry()
     {
         Debug.Log("Parrying");
-        //myStatSYS.myAnim.SetTrigger("isParrying");
+        myStatSYS.myAnim.SetTrigger("isParrying");
+    }
+
+    private void block()
+    {
+        isBlocking = true;
+        myStatSYS.myAnim.SetTrigger("isBlocking");
+        if (isBlocking)
+        {
+            myStatSYS.myAnim.SetBool("holdBlocking", true);
+
+        }
     }
 
     private void projectile()
     {
         Debug.Log("Projectile");
+        myStatSYS.myAnim.SetTrigger("fireProjectile");
         projectileSYS.instantiateProjectile();
     }
 

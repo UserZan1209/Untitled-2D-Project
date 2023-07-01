@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] public int moveSpeed;
     [SerializeField] public bool canMove;
-    public bool isFacingRight = false;
+    public bool isFacingRight = true;
 
     [HideInInspector] private SpriteRenderer mySPRRen;
     [HideInInspector] private characterStatSystem pStatSys;
@@ -39,11 +39,11 @@ public class Movement : MonoBehaviour
             pStatSys.isMoving = true;
 
 
-            if(h > 0.1f && isFacingRight == true)
+            if(h < 0.01f && isFacingRight == true)
             {
                 FlipX();
             }
-            if(h < 0.1f && isFacingRight == false)
+            if(h > -0.01f && isFacingRight == false)
             {
                 FlipX();
             }
@@ -67,15 +67,6 @@ public class Movement : MonoBehaviour
 
     private void InputMovement(float x, float y)
     {
-        if(x < 0)
-        {
-            //mySPRRen.flipX = true;
-        }
-        else if(x > 0)
-        {
-            //mySPRRen.flipX = false;
-        }
-
         Vector2 targetVector;
         targetVector = new Vector2(x, y);
         transform.Translate(targetVector * Time.deltaTime * moveSpeed);

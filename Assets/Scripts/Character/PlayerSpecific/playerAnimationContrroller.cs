@@ -20,7 +20,12 @@ public class playerAnimationContrroller : MonoBehaviour
     {
         if (pStatSys.isMoving)
         {
-            pStatSys.myAnim.SetBool("isMoving", !pStatSys.myAnim.GetBool("isMoving"));
+            pStatSys.myAnim.SetBool("isMoving",true);
+        }
+        else
+        {
+            pStatSys.myAnim.SetBool("isMoving", false);
+
         }
     }
 }
